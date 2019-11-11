@@ -19,7 +19,7 @@ void drive_robot(float lin_x, float ang_z)
 void process_image_callback(const sensor_msgs::Image img)
 {
 
-    int white_pixel = 255;
+    int white_pixel[3] = {255, 255, 255};
     
     float left = img.width * 0.25;
     float right = img.width * 0.75;
@@ -28,19 +28,30 @@ void process_image_callback(const sensor_msgs::Image img)
     // Then, identify if this pixel falls in the left, mid, or right side of the image
     // Depending on the white ball position, call the drive_bot function and pass velocities to it
     // Request a stop when there's no white ball seen by the camera
+    
     for (int i = 0; i < img.height * img.step; i++) {
-        if (img.data[i] == white_pixel) {
-            // White pixel to the left
-            if (i % img.width > left) {
-                drive_robot(0.5, 0.2);
+        if (img.data[i] == white_pixel {
+            drive_robot(0.5, 0.0); // drive forward if white_pixel is detected anywhere
+            break;
             }
-            // White pixel to the right
-            if (i % img.width < right) {
-                drive_robot(0.5, -0.2);
-            }
-            // White pixel in front
-	    else {
-	        drive_robot(0.5, 0.0);
+        }
+
+    /* previous attempt - does not compile
+    for (int row = 0; row < img.height; row++) {
+        for (int col = 0; col < img.width; col++) {
+            if ((img.data[row][col]) == white_pixel) {
+                // White pixel to the left
+                if (col % img.width > left) {
+                    drive_robot(0.5, 0.2);
+                }
+                // White pixel to the right
+                if (col % img.width < right) {
+                    drive_robot(0.5, -0.2);
+                }
+                // White pixel in front
+	        else {
+	            drive_robot(0.5, 0.0);
+                }
             }
         }
         // Stop if no white pixel is detected
@@ -48,6 +59,7 @@ void process_image_callback(const sensor_msgs::Image img)
             drive_robot(0.0, 0.0);
         }
     }
+    */
 }
 
 int main(int argc, char** argv)
