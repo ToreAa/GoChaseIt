@@ -30,7 +30,7 @@ void process_image_callback(const sensor_msgs::Image img)
     // Request a stop when there's no white ball seen by the camera
     
     for (int i = 0; i < img.height * img.step; i++) {
-        if (img.data[i] == white_pixel {
+        if (img.data[i] == white_pixel) {
             drive_robot(0.5, 0.0); // drive forward if white_pixel is detected anywhere
             break;
             }
