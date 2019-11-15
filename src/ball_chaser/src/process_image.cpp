@@ -15,8 +15,11 @@ void drive_robot(float lin_x, float ang_z)
     srv.request.angular_z = ang_z;
 
     // Call srv, and display and error message if not successful
+    client.call(srv);
+    /*
     if (!client.call(srv))
         ROS_ERROR("Failed to call service safe_move");
+    */
 }
 
 // This callback function continuously executes and reads the image data
@@ -57,7 +60,7 @@ int main(int argc, char** argv)
     ros::NodeHandle n;
 
     // Define a client service capable of requesting services from command_robot
-    client = n.serviceClient<ball_chaser::DriveToTarget>("/ball_chaser/command_robot");
+    client = n.serviceClient<ball_chaser::DriveToTarget>("/ball_chaser/DriveToTarget");
 
     // Subscribe to /camera/rgb/image_raw topic to read the image data inside the process_image_callback function
     ros::Subscriber sub1 = n.subscribe("/camera/rgb/image_raw", 10, process_image_callback);
