@@ -27,7 +27,7 @@ void process_image_callback(const sensor_msgs::Image img)
 {
 
     int white = 255; // a white pixel is denoted by 3x 255
-    int pos; // horizontal position 
+    int i; // pixel index 
     float left = img.step * 0.25;
     float right = img.step * 0.75;
 
@@ -38,6 +38,7 @@ void process_image_callback(const sensor_msgs::Image img)
     
     for (int i = 0; i < img.height * img.step; i = i+3) {
         if (img.data[i] == white && img.data[i+1] == white && img.data[i+2] == white) {
+            ROS_INFO("Found white pixel");
             if (i % img.step < left) {
                 drive_robot(0.0, 0.2); // drive left
                 }
@@ -45,12 +46,13 @@ void process_image_callback(const sensor_msgs::Image img)
                 drive_robot(0.0, -0.2); // drive right
                 }
             else {
-                drive_robot(0.5, 0.0); // drive forward 
+            drive_robot(0.5, 0.0); // drive forward 
                 }
-            }            
-        break;
-        }
+        break; 
+            }
+         
     }
+}
 
 
 int main(int argc, char** argv)
