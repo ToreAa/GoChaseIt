@@ -46,12 +46,12 @@ void process_image_callback(const sensor_msgs::Image img)
                 drive_robot(0.0, -0.2); // drive right
                 }
             else {
-            drive_robot(0.5, 0.0); // drive forward 
+                drive_robot(0.5, 0.0); // drive forward 
                 }
-        break; 
-            }
-         
+            return;
+        }
     }
+    drive_robot(0.0, 0.0); // stop
 }
 
 
